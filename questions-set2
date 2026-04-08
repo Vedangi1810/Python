@@ -1,0 +1,244 @@
+1. File & Log Processing (VERY COMMON)
+❓ Scenario:
+
+You have a log file (app.log). Find:
+
+ERROR lines
+Count occurrences
+Extract timestamps
+✅ What they expect:
+error_count = 0
+
+with open("app.log", "r") as f:
+    for line in f:
+        if "ERROR" in line:
+            error_count += 1
+            print(line.strip())
+
+print("Total Errors:", error_count)
+
+👉 Follow-up:
+
+Use regex to extract timestamp
+Handle large files (memory efficient)
+🔥 2. Automating Server Tasks
+❓ Scenario:
+
+Run Linux commands using Python (like df -h, uptime)
+
+✅ Expected:
+import subprocess
+
+result = subprocess.run(["df", "-h"], capture_output=True, text=True)
+print(result.stdout)
+
+👉 Follow-up:
+
+Handle command failure
+Timeout handling
+🔥 3. API Integration (SUPER IMPORTANT)
+❓ Scenario:
+
+Call an API (like Jira, GitHub) and parse response
+
+✅ Expected:
+import requests
+
+url = "https://api.github.com/repos/user/repo"
+response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()
+    print(data["name"])
+
+👉 Follow-up:
+
+Add authentication
+Retry logic
+Handle rate limits
+🔥 4. YAML / JSON Parsing (DevOps Core)
+❓ Scenario:
+
+Read a Kubernetes YAML or config file and modify values
+
+✅ Expected:
+import yaml
+
+with open("deployment.yaml") as f:
+    data = yaml.safe_load(f)
+
+data["spec"]["replicas"] = 3
+
+with open("deployment.yaml", "w") as f:
+    yaml.dump(data, f)
+
+👉 Follow-up:
+
+Validate schema
+Handle nested configs
+🔥 5. Writing a Health Check Script
+❓ Scenario:
+
+Check if a service is running on a port
+
+✅ Expected:
+import socket
+
+def check_port(host, port):
+    s = socket.socket()
+    try:
+        s.connect((host, port))
+        return True
+    except:
+        return False
+
+print(check_port("localhost", 8080))
+
+👉 Follow-up:
+
+Check multiple services
+Add alerting
+🔥 6. Automating File Backup
+❓ Scenario:
+
+Backup files daily
+
+✅ Expected:
+import shutil
+import datetime
+
+source = "data/"
+dest = f"backup_{datetime.datetime.now().strftime('%Y%m%d')}"
+
+shutil.copytree(source, dest)
+
+👉 Follow-up:
+
+Compress backup
+Upload to S3
+🔥 7. Environment Variables Handling
+❓ Scenario:
+
+Use secrets/config securely
+
+✅ Expected:
+import os
+
+db_pass = os.getenv("DB_PASSWORD")
+print(db_pass)
+
+👉 Follow-up:
+
+What if variable missing?
+Use .env file
+🔥 8. Writing a Retry Mechanism (IMPORTANT)
+❓ Scenario:
+
+Retry API call if it fails
+
+✅ Expected:
+import time
+import requests
+
+for i in range(3):
+    try:
+        r = requests.get("https://api.example.com")
+        if r.status_code == 200:
+            break
+    except:
+        time.sleep(2)
+
+👉 Follow-up:
+
+Exponential backoff
+🔥 9. Multithreading for Faster Execution
+❓ Scenario:
+
+Check multiple servers in parallel
+
+✅ Expected:
+from concurrent.futures import ThreadPoolExecutor
+import requests
+
+urls = ["http://a.com", "http://b.com"]
+
+def check(url):
+    return requests.get(url).status_code
+
+with ThreadPoolExecutor() as executor:
+    results = executor.map(check, urls)
+
+print(list(results))
+🔥 10. Disk Space Alert Script
+❓ Scenario:
+
+Alert if disk usage > 80%
+
+✅ Expected:
+import shutil
+
+total, used, free = shutil.disk_usage("/")
+
+percent = (used / total) * 100
+
+if percent > 80:
+    print("Disk usage critical!")
+🔥 11. Parsing Command Output
+❓ Scenario:
+
+Get only specific values from command output
+
+👉 Expect parsing + string handling skills
+
+🔥 12. Writing CLI Tool (Advanced)
+❓ Scenario:
+
+Create CLI like:
+
+python script.py --env prod --action deploy
+✅ Expected:
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--env")
+parser.add_argument("--action")
+
+args = parser.parse_args()
+
+print(args.env, args.action)
+🔥 13. Git Automation
+❓ Scenario:
+
+Clone repo / pull latest code
+
+import os
+
+os.system("git clone https://github.com/user/repo.git")
+
+👉 Better answer: use subprocess
+
+🔥 14. Exception Handling (VERY IMPORTANT)
+❓ Scenario:
+
+Make script production-ready
+
+try:
+    x = int("abc")
+except ValueError:
+    print("Invalid input")
+
+👉 Follow-up:
+
+Logging instead of print
+🔥 15. Real DevOps Scenario Question
+❓ “You have 100 servers. You need to:
+Check CPU usage
+Restart service if high
+Send alert”
+
+👉 Expected approach:
+
+Use SSH (paramiko)
+Loop / parallel execution
+Logging
+Alert system
