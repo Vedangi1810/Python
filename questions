@@ -1,0 +1,162 @@
+TOP 20 DEVOPS PYTHON CODING QUESTIONS
+🟢 1. Find top 5 most frequent IPs from log file
+
+👉 Tests: dict, sorting
+
+from collections import Counter
+
+with open("access.log") as f:
+    ips = [line.split()[0] for line in f]
+
+print(Counter(ips).most_common(5))
+🟢 2. Check if a server is reachable (ping/HTTP)
+import requests
+
+def is_alive(url):
+    try:
+        return requests.get(url, timeout=3).status_code == 200
+    except:
+        return False
+🟢 3. Merge multiple JSON config files
+import json
+
+result = {}
+for file in ["a.json", "b.json"]:
+    with open(file) as f:
+        result.update(json.load(f))
+
+print(result)
+🟢 4. Replace secrets in config file (like ENV injection)
+import os
+
+config = "DB_PASS=${DB_PASS}"
+config = config.replace("${DB_PASS}", os.getenv("DB_PASS", "default"))
+🟢 5. Find duplicate files in a directory
+
+👉 Tests hashing
+
+import hashlib, os
+
+hashes = {}
+
+for root, _, files in os.walk("data"):
+    for f in files:
+        path = os.path.join(root, f)
+        with open(path, "rb") as file:
+            h = hashlib.md5(file.read()).hexdigest()
+            hashes.setdefault(h, []).append(path)
+
+print([v for v in hashes.values() if len(v) > 1])
+🟢 6. Monitor CPU usage continuously
+import psutil
+import time
+
+while True:
+    print(psutil.cpu_percent(interval=1))
+    time.sleep(2)
+🟢 7. Retry decorator (VERY IMPRESSIVE)
+import time
+
+def retry(func):
+    def wrapper(*args, **kwargs):
+        for _ in range(3):
+            try:
+                return func(*args, **kwargs)
+            except:
+                time.sleep(2)
+    return wrapper
+🟢 8. Read huge file without memory issue
+with open("big.log") as f:
+    for line in f:
+        print(line.strip())
+🟢 9. Extract error codes using regex
+import re
+
+line = "ERROR 500: Internal Server Error"
+match = re.search(r"\d{3}", line)
+
+if match:
+    print(match.group())
+🟢 10. Parallel API calls (threading)
+from concurrent.futures import ThreadPoolExecutor
+import requests
+
+urls = ["http://a.com", "http://b.com"]
+
+with ThreadPoolExecutor() as ex:
+    results = ex.map(lambda u: requests.get(u).status_code, urls)
+
+print(list(results))
+🟢 11. Check disk usage & alert
+import shutil
+
+total, used, _ = shutil.disk_usage("/")
+if used / total > 0.8:
+    print("ALERT!")
+🟢 12. Convert YAML → JSON
+import yaml, json
+
+with open("file.yaml") as f:
+    data = yaml.safe_load(f)
+
+print(json.dumps(data, indent=2))
+🟢 13. Kill a process by name
+import os
+
+os.system("pkill -f process_name")
+
+👉 Better: use psutil
+
+🟢 14. Validate IP address
+import re
+
+def is_valid(ip):
+    return bool(re.match(r"^\d{1,3}(\.\d{1,3}){3}$", ip))
+🟢 15. Check open ports on a host
+import socket
+
+def check_port(host, port):
+    s = socket.socket()
+    return s.connect_ex((host, port)) == 0
+🟢 16. Sort logs by timestamp
+logs = ["2024-01-01 error", "2023-12-01 info"]
+logs.sort()
+print(logs)
+
+👉 Follow-up: custom parsing
+
+🟢 17. Create a simple scheduler (cron-like)
+import time
+
+while True:
+    print("Running task...")
+    time.sleep(60)
+🟢 18. Upload file to S3 (common in DevOps)
+import boto3
+
+s3 = boto3.client('s3')
+s3.upload_file("file.txt", "bucket-name", "file.txt")
+🟢 19. Parse command output
+import subprocess
+
+out = subprocess.check_output("df -h", shell=True).decode()
+print(out)
+🟢 20. Basic Flask API (used in automation tools)
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "DevOps API running"
+
+app.run(port=5000)
+🎯 MOST IMPORTANT QUESTIONS (Focus First)
+
+If short on time, prioritize these:
+
+🔥 Log parsing (Q1, Q9)
+🔥 API handling (Q2, Q10, Q7)
+🔥 System scripts (Q6, Q11, Q15)
+🔥 File handling (Q5, Q8)
+🔥 YAML/JSON (Q3, Q12)
