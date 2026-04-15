@@ -56,3 +56,67 @@ text = "apple,banana,orange,grape"
 pattern = r","
 split_result = re.split(pattern, text)
 print("Split result:", split_result)
+
+###################################################
+STRING
+
+# # string concatenation
+# str1 = "vedangi"
+# str2 = "dhole"
+# print(str1+" "+str2)
+
+# # string length
+# strlen = "myname is vedangi"
+# print(len(strlen))
+
+# # string replace
+# orgstring = "region is uat"
+# repstring = "prod"
+# print(orgstring.replace("uat",repstring))
+
+# # string conversion (lowercase, uppercase)
+# strcase = "Vedangi"
+# print(strcase.lower())
+# print(strcase.upper())
+
+# # string split and strip
+# strcut = " * welcome to python **"
+# print(strcut.split(" "))
+
+# # The argument is treated as a set of individual characters, not a specific sequence. The order of the characters in strip(" *") does not matter.
+# print(strcut.strip(""))
+# print(strcut.strip("p")) # strip will not remove character in between
+# print(strcut.lstrip(" *"))
+# print(strcut.rstrip(" *"))
+
+# strcut2 = "** *Hello, world!!!***!!!"
+# print(strcut2.strip("*! "))
+
+# txt = ",,,,,rrttgg.....banana....rrr"
+
+# x = txt.strip(",.grt")
+
+# print(x) #banana
+
+# substr = "my name is vedangi"
+# if "vedangi" in substr:
+#     print("Yes")
+
+# #################################################################333333
+
+num1 = 10
+num2 = 5
+
+print(num1 % num2)
+print(num1 // num2)
+print(num1 / num2)
+print(abs(-85))
+
+num3 = 5.4
+num4 = 2.8
+print(num3 * num4)
+print(num3 + num4)
+print(num3 - num4)
+print(num3 / num4)
+print(num3 // num4) # 1.0 floor division : rounds to nearest down value any .0 because one of the input is float so return float output
+print(round(3.1425754467,2))
