@@ -1,0 +1,17 @@
+List and Tuples
+
+list and tuple : heterogenos structure
+
+tuple cannot be modified
+tuple has better memory footprint (more faster n memory efficient)
+
+List methods:
+append()
+remove()
+len()
+sort()
+
+tuple methods:
+count
+len
+index
